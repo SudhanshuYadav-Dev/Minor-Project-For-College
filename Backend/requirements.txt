@@ -1,0 +1,13 @@
+const generateImage = async (prompt) => {
+  const response = await fetch("http://localhost:5000/generate-image", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt }),
+  });
+
+  const data = await response.json();
+  if (data.image_base64) {
+    const imgSrc = `data:image/png;base64,${data.image_base64}`;
+    document.getElementById("output").src = imgSrc;
+  }
+};
